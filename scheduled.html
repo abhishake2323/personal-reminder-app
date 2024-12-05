@@ -1,15 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Reminder App - View Scheduled Reminderss</title>
     <link rel="stylesheet" href="/css/styles.css">
     <script src="/js/script.js" defer></script>
-    <title>Personal Event Reminder App</title>
 </head>
-
-<body class="darkMode">
+<body onload="fillScheduled()">
     <header class="darkMode">
 
         <h3 class="title">
@@ -63,33 +61,9 @@
           
            
         </h3>
-         <div class="sub-nav"><ul  class="d-inline-flex"><li> <a href="/scheduled.html">Scheduled</a> </li><li  ><a href="/completed.html">Completed</a></li></ul>  </div> </div>
+         <div class="sub-nav"><ul  class="d-inline-flex"><li> <a href="/index.html">Home</a> </li><li> <a href="/scheduled.html">Scheduled</a> </li><li  ><a href="/completed.html">Completed</a></li></ul>  </div> </div>
         
     </header>
-    <!-- <button class="btn">New Task</button>
-        <button class="btn">Completed Tasks</button> -->
-    <div class="content"> 
-    <div class="block newTask">
-        <div class="taskHeader">
-            New Reminder
-            <div class="logo float-right">
-                <img src="/img/edit-report-svgrepo-com.svg" width="25px" alt="">
-            </div>
-        </div>
-
-        <div class="blockbody">
-
-            <textarea class="newTaskInput" placeholder="Enter your note here ..." id="newTaskText"></textarea> 
-            <label >When</label> <input class="timeInput" id="whenTime" type="datetime-local"><button
-            class="btn" id="todayBtn">Today</button> <button
-            class="btn" id="tomBtn">Tommorow</button>
-            <button
-                class="btnd" id="createBtn">Save</button>
-        </div>
-
-        
-    </div>
-
     <div class="block newTask scheduled" id="scheduledView">
         <div class="taskHeader">
           Scheduled 
@@ -105,7 +79,7 @@
             <table  class="sch-records">
                 <thead>
                     <th>#</th>
-                    <th>Note Description</th>
+                    <th>Description</th>
                     <th>Date & Time</th>
                     <th>Action</th>
                 </thead>
@@ -122,39 +96,7 @@
 
         
     </div>
-    
-    <div class="block newTask completed" id="completedView">
-        <div class="taskHeader">
-          Completed   
-          <div class="logo float-right">
-            <img src="/img/circle-check-filled-svgrepo-com.svg" style="filter:invert(42%) sepia(93%) saturate(1352%) hue-rotate(87deg) brightness(119%) contrast(59%)" width="30px" alt="">
-        </div>
-        </div>
-
-        <div class="blockbody">
-
-            <table  class="cmp-records">
-                <thead>
-                    <th>#</th>
-                    <th>Description</th>
-                    <th>Date & Time</th>
-                    <th>Action</th>
-                </thead>
-                <tbody>
-                   <tr class="cmp-tr"><td class="cmp-idField"></td><td class="cmp-noteField"></td> <td class="cmp-tsField"> </td> <td class="cmp-snooze"> <button class="btn">Delete</button></td> </tr>
-                   
-
-
-                 </tbody>
-            </table>
-            
-            
-        </div>
-
-            
-    </div>
-</div>
-
+     
 </body>
-
+ 
 </html>
