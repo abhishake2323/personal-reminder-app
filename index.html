@@ -9,8 +9,8 @@
     <title>Personal Event Reminder App</title>
 </head>
 
-<body>
-    <header>
+<body class="darkMode">
+    <header class="darkMode">
 
         <h3 class="title">
             <div class="logos">
@@ -59,8 +59,9 @@
                 </svg>
 
             </div>
+            <div class="logo-caption"> Personal Reminder App </div>
 
-            Personal Reminder App
+           
         </h3>
 
     </header>
@@ -77,12 +78,12 @@
 
         <div class="blockbody">
 
-            <textarea class="newTaskInput" placeholder="Enter your note here ..."></textarea> 
-            <label for="">When</label> <input type="datetime-local"><button
-            class="btn">Today</button> <button
-            class="btn">Tommorow</button>
+            <textarea class="newTaskInput" placeholder="Enter your note here ..." id="newTaskText"></textarea> 
+            <label >When</label> <input class="timeInput" id="whenTime" type="datetime-local"><button
+            class="btn" id="todayBtn">Today</button> <button
+            class="btn" id="tomBtn">Tommorow</button>
             <button
-                class="btnd">Create</button>
+                class="btnd" id="createBtn">Create</button>
         </div>
 
         
@@ -105,7 +106,7 @@
     </div>
     <div class="block newTask">
         <div class="taskHeader">
-          Completed 
+          Completed Events 
           <div class="logo float-right">
             <img src="/img/circle-check-filled-svgrepo-com.svg" style="filter:invert(42%) sepia(93%) saturate(1352%) hue-rotate(87deg) brightness(119%) contrast(59%)" width="30px" alt="">
         </div>

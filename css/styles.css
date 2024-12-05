@@ -1,28 +1,78 @@
 body {
     margin-top: 0;
+    margin-left: 0;
     padding-top: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
     color: rgb(84, 84, 84);
+    
 }
 
 
 header {
     top:0;
+    color: white;
     position: sticky;
     width: 100vw;
     margin-top: 0px;
     ;
     text-align: center;
-    padding: 2px 0 2px 0;
-    background-color: #fafafa;
-    box-shadow: 0px 3px 15px 0px #c3d9eb;
+    
+    background-color: #564895;
+    
+    /* box-shadow: 0px 3px 15px 0px #c3d9eb; */
 }
 
+ 
+.title{
+    display: inline-flex;
+}
+
+
+.timeInput{
+    padding: 5px 10px 5px 10px;
+    background-color: rgba(36, 183, 236, 0);
+    border: 2px solid #efefef;
+    border-radius: 20px;
+    margin: 0 10px 0 4px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
+
+}
+
+.timeInput:focus{
+    outline-color: #564895;
+    outline-width: 1px;
+
+}
+.btn{
+    padding: 5px 10px 5px 10px;
+    /* color: white; */
+    background-color: rgba(36, 183, 236, 0);
+    border: 2px solid #efefef;
+    border-radius: 20px;
+    margin: 0 4px 0 4px;
+}
+
+.btn:hover{
+    padding: 5px 10px 5px 10px;
+    /* color: white; */
+    background-color: rgb(247, 207, 87);
+    border: 2px solid #efefef;
+    border-radius: 20px;
+    margin: 0 4px 0 4px;
+}
+.btn:active{
+    padding: 5px 10px 5px 10px;
+    /* color: white; */
+    background-color: rgb(214, 174, 52);
+    border: 2px solid #efefef;
+    border-radius: 20px;
+    margin: 0 4px 0 4px;
+}
 .btnd {
-    padding: 10px 20px 10px 20px;
+    padding: 5px 10px 5px 10px;
     color: white;
     background-color: rgb(36, 183, 236);
-    border: 1px solid #efefef;
+    border: 2px solid #efefef;
     border-radius: 20px;
     margin: 0 4px 0 4px;
 }
@@ -47,17 +97,23 @@ header {
 }
 .logos{
     
-    transform: translateX(-30px);
+    transform: translateX(-20px);
   
+}
+.logo-caption{
+    padding: 1rem 0;
+    transform: translateX(-20px);
 }
 
 .block{
+    background-color: #c7c2db;
     margin-left: 5rem;
     margin-right: 5rem;
     margin-top: 20px;
     padding: 5px;
-    border: 1px solid #f5e0d2;
-    box-shadow: 0px 3px 15px 0px #ebe3c3;
+    /* border: 2px solid #698094; */
+    border-radius: 5px;
+    /* box-shadow: 0px 3px 15px 0px #ebe3c3; */
 }
 
 .blockbody{
@@ -68,7 +124,7 @@ header {
 .taskHeader{
     font-weight: 700;
     font-style: italic;
-    border-bottom: 2px solid #f5f1e0;
+    /* border-bottom: 2px solid #698094; */
     padding: 1rem;
     
      
@@ -94,5 +150,5 @@ header {
 
 .content{
 
-    /* background-color: #cdc7c2; */
+    /* background-color: #7c96ab; */
 }
