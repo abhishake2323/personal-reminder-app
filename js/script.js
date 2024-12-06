@@ -10,6 +10,11 @@ if (localStorage.getItem("localDb") === null) {
 function createNewTask() {
     let newTaskText = document.getElementById("newTaskText").value;
     let whenTime = document.getElementById("whenTime").value;
+
+    if( newTaskText.length <=2 || whenTime.length===0){
+        alert("Please fill both Notes and time before saving.")
+    }
+
     let localDb = localStorage.getItem('localDb');
 
     localDb = JSON.parse(localDb);
@@ -78,6 +83,14 @@ if (todayBtn !== null) {
 
     createBtn.addEventListener("click", function () {
         createNewTask();
+    });
+
+
+
+    createBtn.addEventListener("keyup", function (event) {
+        if (event.key  === 13) {
+            createNewTask();
+        }
     });
 }
 
@@ -171,30 +184,51 @@ function validateTimers() {
 
 
 
-function checkTimeAndSendNotif( ) {
+ function checkTimeAndSendNotif( ) {
 
     var currentTs = new Date().getTime();  
-    var latestRecord = getUpcomingRecord()[0];
+    var latestRecord = getUpcomingRecord()
+    if (latestRecord.length>0){
+        latestRecord =latestRecord[0]
+    
+
     var timeLeft = new Date(latestRecord.remindingTime).getTime() - currentTs;
    
-    console.log(timeLeft/1000/60)
+    // console.s(timeLeft/1000/60);
 
     if (timeLeft>=0 && timeLeft <=1000 ) {
         if (confirm(latestRecord.reminderNote)) {
-
+              playafterAsecond();
             alert("Notification dismissed");
             console.log("Notif sent")
     
         }
     }
-
+}
+;
 
 }
 
-// setTimeout(sendNotifcation,timeLeft,latestRecord)
-setInterval(checkTimeAndSendNotif,500);
-setInterval(fillCompletedTasks, 1000, false);
-setInterval(fillScheduled, 1000, false);
-setInterval(validateTimers, 1000);
+// // setTimeout(sendNotifcation,timeLeft,latestRecord)
+// setInterval(checkTimeAndSendNotif,500);
+// setInterval(fillCompletedTasks, 1000, false);
+// setInterval(fillScheduled, 1000, false);
+// setInterval(validateTimers, 1000);
  
 
+ 
+
+
+ 
+// function playafterAsecond(){
+       
+//     var source = "/audio/mixkit-access-allowed-tone-2869.wav"
+//     var audio = new Audio();
+//     // no event listener needed here
+//     audio.src = source;
+//     audio.autoplay = true;
+//           return audio
+
+        
+// }
+ 
