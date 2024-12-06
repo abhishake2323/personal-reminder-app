@@ -7,8 +7,12 @@ body {
 
 }
 
-
+a{
+    text-decoration: none;
+    
+}
 header {
+    z-index: 9999;
     top: 0;
     color: white;
     position: sticky;
@@ -22,21 +26,23 @@ header {
     /* box-shadow: 0px 3px 15px 0px #c3d9eb; */
 }
 
-.sub-nav{ 
+.sub-nav {
     text-align: center;
     line-height: 1px;
     background-color: #7d6ec1;
 }
 
-.sub-nav ul { 
-    
+.sub-nav ul {
+
     list-style: none;
-   
+
 }
-.sub-nav a{
+
+.sub-nav a {
     text-decoration: none;
     color: white;
 }
+
 .title {
     display: inline-flex;
 }
@@ -59,11 +65,18 @@ header {
 
 }
 
+.d-none{
+    display: none;
+}
+
 .btn {
+    display: inline-flex;
+    gap: 3px;
+    align-items: center;
     padding: 5px 10px 5px 10px;
     /* color: white; */
     background-color: rgba(36, 183, 236, 0);
-    border: 2px solid #efefef;
+    border: 2px solid #d2d0d0;
     border-radius: 20px;
     margin: 0 4px 0 4px;
 }
@@ -128,8 +141,8 @@ header {
 
 .d-inline-flex {
     text-align: center;
-    align-items:  center;
-     
+    align-items: center;
+
     display: inline-flex;
     gap: 1rem;
 }
@@ -137,28 +150,34 @@ header {
 table {
     margin-left: 3px;
     border-radius: 5px;
-    background-color: #e4e1f3;
-    width: 100%;
+    /* background-color: #e4e1f3; */
+    width: 90%;
     height: 100%;
 }
 
 .block {
-     
-     
-     
-    background-color: #c7c2db;
+
+
+    border: 1px solid gray;
+    border-top: 5px solid #564895;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    /* background-color: #c7c2db; */
     margin-left: 2rem;
     margin-right: 2rem;
     margin-top: 20px;
     padding: 5px;
     /* border: 2px solid #698094; */
-    border-radius: 5px;
+
     /* box-shadow: 0px 3px 15px 0px #ebe3c3; */
 }
 
 
 .scheduled {
-    background-color: #dbdac2;
+    border-top: 4px solid #dbb21e;
+    /* background-color: #dbdac2; */
 }
 
 .scheduled .records {
@@ -166,7 +185,8 @@ table {
 }
 
 .completed {
-    background-color: #c2dbc7;
+    border-top: 4px solid #24a33e;
+    /* background-color: #c2dbc7; */
 }
 
 .completed .records {
@@ -174,12 +194,14 @@ table {
 }
 
 .blockbody {
-    background-image: linear-gradient(70deg, #56489529, #00000000);
+    /* background-color: #edebf2; */
+    background-image: linear-gradient(70deg, #d4d2dd29, #e9646400);
     padding: 1rem;
     border-radius: 5px;
 }
 
 .taskHeader {
+    background-color: #e4e3ea;
     font-weight: 700;
     font-style: italic;
     /* border-bottom: 2px solid #698094; */
@@ -211,11 +233,27 @@ table {
     /* background-color: #7c96ab; */
 }
 
-td,th{
+td,
+th {
     padding: 0 1rem 0 1rem;
 }
 
-thead{
+.text-center{
+    text-align: center;
+}
+thead {
+    top: 0;
+    position: relative;
     text-align: left;
-    
+
+}
+
+.scheduled .blockbody:not(.seperate) {
+    overflow-y: scroll;
+    height: 10vh;
+}
+
+.completed .blockbody:not(.seperate) {
+    overflow-y: scroll;
+    height: 10vh;
 }

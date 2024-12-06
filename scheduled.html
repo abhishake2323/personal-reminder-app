@@ -6,8 +6,9 @@
     <title>Personal Reminder App - View Scheduled Reminderss</title>
     <link rel="stylesheet" href="/css/styles.css">
     <script src="/js/script.js" defer></script>
+    <link rel="manifest" href="/manifest.json">
 </head>
-<body onload="fillScheduled()">
+<body onload="fillScheduled(true)">
     <header class="darkMode">
 
         <h3 class="title">
@@ -64,7 +65,7 @@
          <div class="sub-nav"><ul  class="d-inline-flex"><li> <a href="/index.html">Home</a> </li><li> <a href="/scheduled.html">Scheduled</a> </li><li  ><a href="/completed.html">Completed</a></li></ul>  </div> </div>
         
     </header>
-    <div class="block newTask scheduled" id="scheduledView">
+    <div class="block   scheduled " id="scheduledView">
         <div class="taskHeader">
           Scheduled 
           <div class="logo float-right">
@@ -72,7 +73,7 @@
         </div>
         </div>
 
-        <div class="blockbody">
+        <div class="blockbody seperate">
 
         
 
@@ -84,7 +85,8 @@
                     <th>Action</th>
                 </thead>
                 <tbody>
-                   <tr class="sch-tr"><td class="sch-idField"></td><td class="sch-noteField"></td> <td class="sch-tsField"> </td> <td class="sch-snooze"> <button class="btn">Snooze</button></td> </tr>
+                   <tr class="sch-tr"><td class="sch-idField"></td><td class="sch-noteField"></td> <td class="sch-tsField">
+                     </td> <td class="sch-snooze"> <button class="btn"><img width="20px" src="/img/snooze-svgrepo-com.svg" alt=""> <span>Snooze</span> </button></td> </tr>
                    
 
 

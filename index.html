@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/css/styles.css">
     <script src="/js/script.js" defer></script>
     <title>Personal Event Reminder App</title>
+    <link rel="manifest" href="/manifest.json">
 </head>
 
 <body class="darkMode">
@@ -63,7 +64,7 @@
           
            
         </h3>
-         <div class="sub-nav"><ul  class="d-inline-flex"><li> <a href="/scheduled.html">Scheduled</a> </li><li  ><a href="/completed.html">Completed</a></li></ul>  </div> </div>
+         <div class="sub-nav"><ul  class="d-inline-flex"><li> <a href="/scheduled.html">Scheduled</a> </li><li  ><a href="/completed.html">Completed</a></li>   </ul>  </div> </div>
         
     </header>
     <!-- <button class="btn">New Task</button>
@@ -110,8 +111,8 @@
                     <th>Action</th>
                 </thead>
                 <tbody>
-                   <tr class="sch-tr"><td class="sch-idField"></td><td class="sch-noteField"></td> <td class="sch-tsField"> </td> <td class="sch-snooze"> <button class="btn">Snooze</button></td> </tr>
-                   
+                   <tr class="sch-tr"><td class="sch-idField"></td><td class="sch-noteField"></td> <td class="sch-tsField"> </td> <td class="sch-snooze d-none"> <button class="btn"> <img width="20px" src="/img/snooze-svgrepo-com.svg" alt="">  Snooze</button></td> </tr>
+                   <tr id="viewMoreSch"><td  class="text-center" colspan="4"><a href="/scheduled.html">View more</a></td></tr>
 
 
                  </tbody>
@@ -141,9 +142,9 @@
                     <th>Action</th>
                 </thead>
                 <tbody>
-                   <tr class="cmp-tr"><td class="cmp-idField"></td><td class="cmp-noteField"></td> <td class="cmp-tsField"> </td> <td class="cmp-snooze"> <button class="btn">Delete</button></td> </tr>
+                   <tr class="cmp-tr"><td class="cmp-idField"></td><td class="cmp-noteField"></td> <td class="cmp-tsField"> </td> <td class="cmp-snooze d-none"> <button class="btn"> <img width="20px" src="/img/delete-2-svgrepo-com.svg" alt=""> <span class="btn-text">Delete</span> </button></td> </tr>
                    
-
+                   <tr  id="viewMoreCmp"><td  class="text-center" colspan="4"><a href="/completed.html">View more</a></td></tr>
 
                  </tbody>
             </table>
@@ -156,5 +157,10 @@
 </div>
 
 </body>
+<script>
+    if('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js', { scope: '/' });
+    }
+    </script>
 
 </html>

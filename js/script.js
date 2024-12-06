@@ -1,5 +1,5 @@
 
-var sampleRecord = { id: -1, reminderNote: "Sample note", remindingTime: getRespectiveDate(), isSent: false };
+var sampleRecord = { id: -1, reminderNote: "Sample note", remindingTime: getRespectiveDate(), isSent: false, isDismissed: false };
 
 if (localStorage.getItem("localDb") === null) {
     var localDb = [];
@@ -26,6 +26,7 @@ function createNewTask() {
         task.reminderNote = newTaskText;
         task.remindingTime = whenTime;
         task.isSent = false;
+        task.isDismissed = false;
         localDb.push(task);
         localStorage.setItem("localDb", JSON.stringify(localDb));
         alert("Created!")
@@ -64,98 +65,136 @@ var todayBtn = document.getElementById("todayBtn");
 var tomBtn = document.getElementById("tomBtn");
 var createBtn = document.getElementById("createBtn");
 
-if( todayBtn!==null) { 
-todayBtn.addEventListener("click", function () {
-    document.getElementById("whenTime").value = getRespectiveDate("today");
-    document.getElementById("whenTime").select()
-});
+if (todayBtn !== null) {
+    todayBtn.addEventListener("click", function () {
+        document.getElementById("whenTime").value = getRespectiveDate("today");
+        document.getElementById("whenTime").select()
+    });
 
-tomBtn.addEventListener("click", function () {
-    document.getElementById("whenTime").value = getRespectiveDate("_");
-    document.getElementById("whenTime").select()
-});
+    tomBtn.addEventListener("click", function () {
+        document.getElementById("whenTime").value = getRespectiveDate("_");
+        document.getElementById("whenTime").select()
+    });
 
-createBtn.addEventListener("click", function () {
-    createNewTask();
-});
+    createBtn.addEventListener("click", function () {
+        createNewTask();
+    });
 }
 
 function fillScheduled() {
 
-    var tableTarget  = document.getElementsByClassName('sch-records')[0];
-    var preparedRecord  = document.getElementsByClassName('sch-tr')[0];
-    if(tableTarget!==undefined){ 
-    var localDb = localStorage.getItem('localDb');
+    var tableTarget = document.getElementsByClassName('sch-records')[0];
+    var preparedRecord = document.getElementsByClassName('sch-tr')[0];
+    if (tableTarget !== undefined) {
+        var localDb = localStorage.getItem('localDb');
 
-    localDb =  JSON.parse(localDb);
-    tableTarget.children[1].innerHTML="";
-    localDb.forEach(item => {
-        if(item.isSent ===false ) { 
-        let newRec = preparedRecord.cloneNode(true);
-        newRec.children[0].innerHTML=item.id;
-        newRec.children[1].innerHTML=item.reminderNote;
-        newRec.children[2].innerHTML=new Date(item.remindingTime).toLocaleString();
-        
-        tableTarget.children[1].append(newRec)}
+        localDb = JSON.parse(localDb);
 
-    });
+        tableTarget.children[1].innerHTML = "";
+
+        localDb.forEach(item => {
+            if (item.isSent === false) {
+                let newRec = preparedRecord.cloneNode(true);
+                newRec.children[3].classList.remove("d-none")
+                newRec.children[0].innerHTML = item.id;
+                newRec.children[1].innerHTML = item.reminderNote;
+                newRec.children[2].innerHTML = new Date(item.remindingTime).toLocaleString();
+
+                tableTarget.children[1].append(newRec)
+            }
+
+        });
     }
 
 
 }
 function fillCompletedTasks() {
-    var tableTarget  = document.getElementsByClassName('cmp-records')[0];
-    var preparedRecord  = document.getElementsByClassName('cmp-tr')[0];
-    if(tableTarget!==undefined){ 
+    var tableTarget = document.getElementsByClassName('cmp-records')[0];
+    var preparedRecord = document.getElementsByClassName('cmp-tr')[0];
+    if (tableTarget !== undefined) {
         var localDb = localStorage.getItem('localDb');
 
-        localDb =  JSON.parse(localDb);
-        tableTarget.children[1].innerHTML="";
-    
+        localDb = JSON.parse(localDb);
+        tableTarget.children[1].innerHTML = "";
+
         localDb.forEach(item => {
-            if(item.isSent ===true ) { 
-            let newRec = preparedRecord.cloneNode(true);
-            newRec.children[0].innerHTML=item.id;
-            newRec.children[1].innerHTML=item.reminderNote;
-            newRec.children[2].innerHTML=new Date(item.remindingTime).toLocaleString();
-            
-            tableTarget.children[1].append(newRec)}
-    
+            if (item.isSent === true) {
+                let newRec = preparedRecord.cloneNode(true);
+                newRec.children[0].innerHTML = item.id;
+                newRec.children[1].innerHTML = item.reminderNote;
+                newRec.children[2].innerHTML = new Date(item.remindingTime).toLocaleString();
+
+                tableTarget.children[1].append(newRec)
+            }
+
         });
     }
-    
+
 
 }
 
 
-function sendReminder(){
-
-    
-}
-
-function validateTimers(){
+function getUpcomingRecord() {
     var localDb = localStorage.getItem('localDb');
 
-    localDb =  JSON.parse(localDb);
+    localDb = JSON.parse(localDb);
 
-    
+    return localDb.filter((x) => x.isSent === false && x.isDismissed == false)
+
+}
+
+function validateTimers() {
+    var localDb = localStorage.getItem('localDb');
+
+    localDb = JSON.parse(localDb);
+
+
     const currentTs = new Date().getTime()
 
 
     localDb.forEach(item => {
         var capturedTs = new Date(item.remindingTime).getTime();
         if (capturedTs < currentTs) {
-            item.isSent=true;
+            item.isSent = true;
 
         }
 
 
     });
 
+    localDb.sort((a, b) => new Date(a.remindingTime).getTime() - new Date(b.remindingTime).getTime());
+
     localStorage.setItem("localDb", JSON.stringify(localDb));
-   
+
 }
 
-setInterval(fillCompletedTasks, 1000);
-setInterval(fillScheduled, 1000);
+
+
+
+function checkTimeAndSendNotif( ) {
+
+    var currentTs = new Date().getTime();  
+    var latestRecord = getUpcomingRecord()[0];
+    var timeLeft = new Date(latestRecord.remindingTime).getTime() - currentTs;
+   
+    console.log(timeLeft/1000/60)
+
+    if (timeLeft>=0 && timeLeft <=1000 ) {
+        if (confirm(latestRecord.reminderNote)) {
+
+            alert("Notification dismissed");
+            console.log("Notif sent")
+    
+        }
+    }
+
+
+}
+
+// setTimeout(sendNotifcation,timeLeft,latestRecord)
+setInterval(checkTimeAndSendNotif,500);
+setInterval(fillCompletedTasks, 1000, false);
+setInterval(fillScheduled, 1000, false);
 setInterval(validateTimers, 1000);
+ 
+
