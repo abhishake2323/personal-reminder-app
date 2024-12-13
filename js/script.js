@@ -87,7 +87,7 @@ if (todayBtn !== null) {
 
 
 
-    createBtn.addEventListener("keyup", function (event) {
+    document.addEventListener("keyup", function (event) {
         if (event.key  === 13) {
             createNewTask();
         }
@@ -210,15 +210,17 @@ function validateTimers() {
 }
 
 // // setTimeout(sendNotifcation,timeLeft,latestRecord)
-// setInterval(checkTimeAndSendNotif,500);
-// setInterval(fillCompletedTasks, 1000, false);
-// setInterval(fillScheduled, 1000, false);
-// setInterval(validateTimers, 1000);
+setInterval(checkTimeAndSendNotif,500);
+setInterval(fillCompletedTasks, 1000, false);
+setInterval(fillScheduled, 1000, false);
+setInterval(validateTimers, 1000);
  
 
  
 
+snoozeBtns = document.querySelectorAll(".sch-snooze > button")
 
+document.querySelectorAll(".sch-snooze > button")[0].parentElement.parentElement
  
 // function playafterAsecond(){
        
