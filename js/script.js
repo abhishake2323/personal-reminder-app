@@ -196,11 +196,10 @@ function validateTimers() {
    
     // console.s(timeLeft/1000/60);
 
-    if (timeLeft>=0 && timeLeft <=1000 ) {
+    if (timeLeft>=0 && timeLeft <=1200 ) {
         if (confirm(latestRecord.reminderNote)) {
-              playafterAsecond();
-            alert("Notification dismissed");
-            console.log("Notif sent")
+             alert("Notification dismissed");
+           
     
         }
     }
@@ -210,7 +209,7 @@ function validateTimers() {
 }
 
 // // setTimeout(sendNotifcation,timeLeft,latestRecord)
-setInterval(checkTimeAndSendNotif,500);
+setInterval(checkTimeAndSendNotif,1000);
 setInterval(fillCompletedTasks, 1000, false);
 setInterval(fillScheduled, 1000, false);
 setInterval(validateTimers, 1000);
