@@ -1,3 +1,50 @@
+class localDbClass{
+
+    static load(){
+
+        this.localDb = JSON.parse(localStorage.getItem('localDb'))
+        return this.localDb
+    }
+    static save(){
+        console.log("Saved localdb")
+        localStorage.setItem("localDb",JSON.stringify(this.localDb))
+           
+       }
+    static showData(){
+
+        this.localDb.forEach(item => {console.log(item)})
+    }
+    static markDismissed(id){
+        this.localDb.forEach(item => {
+
+            if (item.id === id) {
+                console.log("Record dismissed from localDb")
+                item.isDismissed = true
+            }
+
+        });
+        this.save();
+    }
+
+    static unmarkDismissed(id){
+        this.localDb.forEach(item => {
+
+            if (item.id === id) {
+                console.log("Record undismissed from localDb")
+                item.isDismissed = false
+            }
+
+        });
+        this.save();
+    }
+    
+    static deleteRecord(id){
+        this.localDb=this.localDb.filter( x=> x.id!==id)
+    }
+
+    
+}
+
 
 var sampleRecord = { id: -1, reminderNote: "Sample note", remindingTime: getRespectiveDate(), isSent: false, isDismissed: false };
 
@@ -106,14 +153,25 @@ function fillScheduled() {
         tableTarget.children[1].innerHTML = "";
 
         localDb.forEach(item => {
+           
             if (item.isSent === false) {
                 let newRec = preparedRecord.cloneNode(true);
                 newRec.children[3].classList.remove("d-none")
                 newRec.children[0].innerHTML = item.id;
                 newRec.children[1].innerHTML = item.reminderNote;
                 newRec.children[2].innerHTML = new Date(item.remindingTime).toLocaleString();
+                if( item.isDismissed ){
+                    console.log(item)
+                    
+                    newRec.children[3].children[0].children[1].innerText="Unsnooze"; 
 
+                }
                 tableTarget.children[1].append(newRec)
+
+               
+                
+
+                
             }
 
         });
@@ -210,27 +268,30 @@ function validateTimers() {
 }
 
 // // setTimeout(sendNotifcation,timeLeft,latestRecord)
-setInterval(checkTimeAndSendNotif,500);
-setInterval(fillCompletedTasks, 1000, false);
-setInterval(fillScheduled, 1000, false);
-setInterval(validateTimers, 1000);
+// setInterval(checkTimeAndSendNotif,500); /asdasdasd
+// setInterval(fillCompletedTasks, 1000, false);
+// setInterval(fillScheduled, 1000, false);
+// setInterval(validateTimers, 1000);
  
 
- 
+function snoozeHandler(el) {
+    let id = el.parentElement.parentElement.children[0].innerText;
+     
+    console.log(id);
+    if (el.innerHTML.includes("Unsnooze") ) {
 
-snoozeBtns = document.querySelectorAll(".sch-snooze > button")
+        el.innerHTML = el.innerHTML.replace("Unsnooze", "Snooze")
 
-document.querySelectorAll(".sch-snooze > button")[0].parentElement.parentElement
- 
-// function playafterAsecond(){
-       
-//     var source = "/audio/mixkit-access-allowed-tone-2869.wav"
-//     var audio = new Audio();
-//     // no event listener needed here
-//     audio.src = source;
-//     audio.autoplay = true;
-//           return audio
+        localDbClass.load()
+        localDbClass.unmarkDismissed(parseInt(id)); 
 
-        
-// }
- 
+    }
+    else {
+        el.innerHTML = el.innerHTML.replace("Snooze", "Unsnooze")
+        localDbClass.load()
+        localDbClass.markDismissed(parseInt(id));
+         
+    }
+
+
+};
