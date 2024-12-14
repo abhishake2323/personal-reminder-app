@@ -4,6 +4,7 @@
     "short_name": "Personal Reminder App",
     "description": "A basic Reminder app to help users to remind custom defined notes at given time",
     "start_url": "/",
+    "scope":".",
     "background_color": "#2f3d58",
     "theme_color": "#2f3d58",
     "orientation": "any",
