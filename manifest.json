@@ -3,7 +3,7 @@
     "name": "Personal Reminder App",
     "short_name": "Personal Reminder App",
     "description": "A basic Reminder app to help users to remind custom defined notes at given time",
-    "start_url": "/",
+    "start_url": "/personal-reminder-app/",
     "scope":"/personal-reminder-app/",
     "background_color": "#2f3d58",
     "theme_color": "#2f3d58",
@@ -11,7 +11,7 @@
     "display": "standalone",
     "icons": [
         {
-            "src": "img/icon.png",
+            "src": "/personal-reminder-app/img/icon.png",
             "sizes": "512x512"
         }
     ]
