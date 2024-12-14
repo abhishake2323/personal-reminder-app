@@ -8,7 +8,7 @@
     <script src="js/script.js" defer ></script>
     <title>An Event Reminder App</title>
     <link rel="manifest" href="manifest.json">
-    <link rel="icon" type="image/png" href="img/icon.png"/>
+    <!-- <link rel="icon" type="image/png" href="img/icon.png"/> -->
 </head>
 
 <body class="darkMode">
@@ -160,7 +160,7 @@
 </body>
 <script>
     if('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js', { scope: '/' });
+      navigator.serviceWorker.register('sw.js', { scope: '/' });
     }
     </script>
 
