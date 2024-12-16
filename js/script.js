@@ -258,7 +258,7 @@ function checkTimeAndSendNotif() {
 
         // console.s(timeLeft/1000/60);
 
-        if (timeLeft >= 0 && timeLeft <= 1500) {
+        if (timeLeft >= 0 && timeLeft <= 2000) {
             dialogDiv.classList.remove("d-none")
             document.getElementById("popupNote").innerText = latestRecord.reminderNote;
             new Notification(`Personal Reminder Alert!:`, { body: `${latestRecord.reminderNote}` })
