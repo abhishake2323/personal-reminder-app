@@ -64,9 +64,27 @@ header {
     outline-width: 1px;
 
 }
+@keyframes shake  {
+ 50% {
+    opacity: 0;
+    }; 
+    /* 0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); } */
+  }
+  
+  /* Apply the shake animation to an element */
+  .shake {
+
+    
+    animation: shake 0.9s ease-in-out;
+    animation-iteration-count: infinite; /* Optional: to make it shake continuously */
+  }
 
 .d-none{
-    display: none;
+    display: none !important;
 }
 
 .btn {
@@ -256,4 +274,50 @@ thead {
 .completed .blockbody:not(.seperate) {
     overflow-y: scroll;
     height: 10vh;
+}
+
+.popupwindw {
+    top: 10%;
+    left: 50%;
+     
+    padding: 1rem;
+    transform: translate(-50%, 0);
+
+    width:20vw;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 1px 0px 0px 5000px rgb(10 25 36 / 46%);
+    z-index: 9999;
+     
+    display: block;
+    position: fixed;
+}
+.popheader{
+    text-align: center;
+    background-color: rgb(255, 255, 2);
+}
+.popbody{
+    margin: 1rem;
+    padding:1rem;
+
+}
+.popfooter{
+    text-align: center;
+    
+    align-items: center;
+}
+.mybtn{
+    
+    bottom: 10px;
+    border: 1px solid gainsboro;
+    color: white;
+    background-color: rgb(113 120 212);
+    border-radius: 5px;
+    padding: 1rem;
+}
+.mybtn:hover{
+    background-color: rgb(140, 167, 240);
+}
+.mybtn:active{
+    background-color: rgb(114, 68, 163);
 }

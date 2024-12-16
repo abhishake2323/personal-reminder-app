@@ -6,7 +6,7 @@ class localDbClass {
         return this.localDb
     }
     static save() {
-        console.log("Saved localdb")
+        // console.log("Saved localdb")
         localStorage.setItem("localDb", JSON.stringify(this.localDb))
 
     }
@@ -60,6 +60,19 @@ class localDbClass {
 
     }
 
+    static syncTimers() {
+        const currentTs = new Date().getTime();
+        this.localDb.forEach(item => {
+            var capturedTs = new Date(item.remindingTime).getTime();
+            if (capturedTs < currentTs) {
+                item.isSent = true;
+
+            }
+        });
+
+        this.localDb.sort((a, b) => new Date(a.remindingTime).getTime() - new Date(b.remindingTime).getTime());
+        this.save();
+    }
 
 }
 
@@ -80,9 +93,9 @@ function createNewTask() {
         alert("Please fill both Notes and time before saving.")
     }
 
-    let localDb = localStorage.getItem('localDb');
+    let localDb = localDbClass.load()
 
-    localDb = JSON.parse(localDb);
+    
     totalRecords = localDb.length;
 
 
@@ -106,6 +119,8 @@ function createNewTask() {
     else {
         alert("Can't create a reminder in the past!")
     }
+
+    fillScheduled();
 
 }
 
@@ -164,9 +179,9 @@ function fillScheduled() {
     var tableTarget = document.getElementsByClassName('sch-records')[0];
     var preparedRecord = document.getElementsByClassName('sch-tr')[0];
     if (tableTarget !== undefined) {
-        var localDb = localStorage.getItem('localDb');
+       
 
-        localDb = JSON.parse(localDb);
+        localDb =  localDbClass.load();
 
         tableTarget.children[1].innerHTML = "";
 
@@ -187,11 +202,7 @@ function fillScheduled() {
                 else {
                     newRec.children[3].children[0].children[1].innerText = "Snooze";
                 }
-                tableTarget.children[1].append(newRec)
-
-
-
-
+                tableTarget.children[1].append(newRec)  
 
             }
 
@@ -204,9 +215,9 @@ function fillCompletedTasks() {
     var tableTarget = document.getElementsByClassName('cmp-records')[0];
     var preparedRecord = document.getElementsByClassName('cmp-tr')[0];
     if (tableTarget !== undefined) {
-        var localDb = localStorage.getItem('localDb');
 
-        localDb = JSON.parse(localDb);
+
+        localDb = localDbClass.load()
         tableTarget.children[1].innerHTML = "";
 
         localDb.forEach(item => {
@@ -227,94 +238,61 @@ function fillCompletedTasks() {
 
 
 function getUpcomingRecord() {
-    var localDb = localStorage.getItem('localDb');
-
-    localDb = JSON.parse(localDb);
-
+    localDb = localDbClass.load()
     return localDb.filter((x) => x.isSent === false && x.isDismissed == false)
 
 }
 
-function validateTimers() {
-    var localDb = localStorage.getItem('localDb');
-
-    localDb = JSON.parse(localDb);
-
-
-    const currentTs = new Date().getTime()
-
-
-    localDb.forEach(item => {
-        var capturedTs = new Date(item.remindingTime).getTime();
-        if (capturedTs < currentTs) {
-            item.isSent = true;
-
-        }
-
-
-    });
-
-    localDb.sort((a, b) => new Date(a.remindingTime).getTime() - new Date(b.remindingTime).getTime());
-
-    localStorage.setItem("localDb", JSON.stringify(localDb));
-
-}
-
-
 
 
 function checkTimeAndSendNotif() {
-
+    localDbClass.load()
+    localDbClass.syncTimers();
     var currentTs = new Date().getTime();
     var latestRecord = getUpcomingRecord()
     if (latestRecord.length > 0) {
         latestRecord = latestRecord[0]
 
-
+        const dialogDiv = document.getElementById("popupDialog");
         var timeLeft = new Date(latestRecord.remindingTime).getTime() - currentTs;
 
         // console.s(timeLeft/1000/60);
 
-        if (timeLeft >= 0 && timeLeft <= 1000) {
-            if (confirm(latestRecord.reminderNote)) {
-                playafterAsecond();
-                alert("Notification dismissed");
-                console.log("Notif sent")
-
-            }
+        if (timeLeft >= 0 && timeLeft <= 1500) {
+            dialogDiv.classList.remove("d-none")
+            document.getElementById("popupNote").innerText = latestRecord.reminderNote;
+            new Notification(`Personal Reminder Alert!:`, { body: `${latestRecord.reminderNote}` })
+            new Audio("audio/mixkit-access-allowed-tone-2869.mp3").play();
         }
+        return timeLeft;
     }
-    ;
+
+    fillCompletedTasks();
+    fillScheduled();
+
 
 }
 
-// // setTimeout(sendNotifcation,timeLeft,latestRecord)
-setInterval(checkTimeAndSendNotif,500);
-setInterval(fillCompletedTasks, 1000, false);
-setInterval(fillScheduled, 1000, false);
-setInterval(validateTimers, 1000);
+
+
 
 function deleteHandler(el) {
     let id = el.parentElement.parentElement.children[0].innerText;
-    console.log(id);
+    
     localDbClass.load()
     localDbClass.deleteRecord(parseInt(id));
     if (confirm("Are you sure to delete the reminder?")) {
         localDbClass.save();
     }
-
-
-
+ 
 }
 
 function snoozeHandler(el) {
     let id = el.parentElement.parentElement.children[0].innerText;
 
-    console.log(id);
+    
     if (el.innerHTML.includes("Unsnooze")) {
-
         el.innerHTML = el.innerHTML.replace("Unsnooze", "Snooze")
-
         localDbClass.load()
         localDbClass.unmarkDismissed(parseInt(id));
 
@@ -328,3 +306,11 @@ function snoozeHandler(el) {
 
 
 };
+function closeDetails(element) {
+    element.parentElement.parentElement.classList.add("d-none");
+
+}
+
+
+
+setInterval(checkTimeAndSendNotif, 1000);  //performs data sync and reminder timing alerts by checking every second.

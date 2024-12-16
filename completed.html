@@ -8,7 +8,7 @@
     <script src="js/script.js" defer></script>
     <link rel="manifest" href="manifest.json">
 </head>
-<body onload="validateTimers();fillCompletedTasks();">
+<body onload="localDbClass.load();localDbClass.syncTimers();fillCompletedTasks();">
     <header class="darkMode">
 
         <h3 class="title">
@@ -62,7 +62,7 @@
           
            
         </h3>
-         <div class="sub-nav"><ul  class="d-inline-flex"><li> <a href="index.html">Home</a> </li><li> <a href="scheduled.html">Scheduled</a> </li><li  ><a href="completed.html">Completed</a></li></ul>  </div> </div>
+         <div class="sub-nav" style="background-color:#24a33e;" ><ul  class="d-inline-flex"><li> <a href="index.html">Home</a> </li><li> <a href="scheduled.html">Scheduled</a> </li><li  ><a href="completed.html"> <b>Completed</b> </a></li></ul>  </div> </div>
         
     </header>
     <div class="block newTask completed" id="completedView">

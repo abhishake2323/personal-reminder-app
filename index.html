@@ -5,14 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/styles.css">
-    <script src="js/script.js" defer ></script>
+    <script src="js/script.js" type="text/javascript" defer ></script>
     <title>An Event Reminder App</title>
     <link rel="manifest" href="manifest.json">
     <!-- <link rel="icon" type="image/png" href="img/icon.png"/> -->
 </head>
 
-<body class="darkMode">
+<body class="darkMode" onload="askNotificationPermission()">
     <header class="darkMode">
+  
 
         <h3 class="title">
             <div class="logos">
@@ -61,7 +62,7 @@
                 </svg>
 
             </div>
-            <div class="logo-caption"> Personal Reminder App </div>
+            <div class="logo-caption"> Personal Reminder App <span id="cou"></span> </div>
           
            
         </h3>
@@ -75,7 +76,7 @@
         <div class="taskHeader">
             New Reminder
             <div class="logo float-right">
-                <img src="img/edit-report-svgrepo-com.svg" width="25px" alt="">
+                <img src="img/edit-report-svgrepo-com.svg" width="25px" >
             </div>
         </div>
 
@@ -91,40 +92,48 @@
 
         
     </div>
-
-    <div class="block newTask scheduled" id="scheduledView">
+    <div class="block   scheduled " id="scheduledView">
         <div class="taskHeader">
-          Scheduled 
-          <div class="logo float-right">
-            <img src="img/in-progress-svgrepo-com.svg" style="filter:invert(42%) sepia(93%) saturate(1352%) hue-rotate(5deg) brightness(119%) contrast(59%)" width="30px" alt="">
+            Scheduled
+            <div class="logo float-right">
+                <img src="img/in-progress-svgrepo-com.svg"
+                    style="filter:invert(42%) sepia(93%) saturate(1352%) hue-rotate(5deg) brightness(119%) contrast(59%)"
+                    width="30px" alt="">
+            </div>
         </div>
-        </div>
 
-        <div class="blockbody">
+        <div class="blockbody  ">
 
-        
 
-            <table  class="sch-records">
+
+            <table class="sch-records">
                 <thead>
                     <th>#</th>
-                    <th>Note Description</th>
+                    <th>Description</th>
                     <th>Date & Time</th>
                     <th>Action</th>
                 </thead>
                 <tbody>
-                   <tr class="sch-tr"><td class="sch-idField"></td><td class="sch-noteField"></td> <td class="sch-tsField"> </td> <td class=" d-none"> <button class="btn sch-snooze"  onclick="snoozeHandler(this)"> <img width="20px" src="img/snooze-svgrepo-com.svg" alt="">  Snooze</button></td> </tr>
-                   <tr id="viewMoreSch"><td  class="text-center" colspan="4"><a href="scheduled.html">View more</a></td></tr>
+                    <tr class="sch-tr">
+                        <td class="sch-idField"></td>
+                        <td class="sch-noteField"></td>
+                        <td class="sch-tsField">
+                        </td>
+                        <td class=" "> <button class="btn sch-snooze-btn" onclick="snoozeHandler(this)"><img
+                                    width="20px" src="img/snooze-svgrepo-com.svg" alt=""> <span>Snooze</span> </button>
+                        </td>
+                    </tr>
 
 
-                 </tbody>
+
+                </tbody>
             </table>
- 
-            
+
+
         </div>
 
-        
+
     </div>
-    
     <div class="block newTask completed" id="completedView">
         <div class="taskHeader">
           Completed   
@@ -133,9 +142,9 @@
         </div>
         </div>
 
-        <div class="blockbody">
-
-            <table  class="cmp-records">
+        <div class="blockbody  ">
+            
+            <table  class="cmp-records ">
                 <thead>
                     <th>#</th>
                     <th>Description</th>
@@ -143,25 +152,53 @@
                     <th>Action</th>
                 </thead>
                 <tbody>
-                   <tr class="cmp-tr"><td class="cmp-idField"></td><td class="cmp-noteField"></td> <td class="cmp-tsField"> </td> <td class=" d-none"> <button class="btn cmp-snooze" onclick="deleteHandler(this)"> <img width="20px" src="img/delete-2-svgrepo-com.svg" alt=""> <span class="btn-text">Delete</span> </button></td> </tr>
+                   <tr class="cmp-tr"><td class="cmp-idField"></td><td class="cmp-noteField"></td> <td class="cmp-tsField"> </td> <td class="cmp-snooze"><button class="btn" onclick="deleteHandler(this)"> <img width="20px" src="img/delete-2-svgrepo-com.svg" alt=""> <span class="btn-text">Delete</span> </button></td> </tr>
                    
-                   <tr  id="viewMoreCmp"><td  class="text-center" colspan="4"><a href="completed.html">View more</a></td></tr>
+
 
                  </tbody>
             </table>
-            
             
         </div>
 
             
     </div>
+    
+    
+    
+   
 </div>
+<div class="popupwindw d-none  " id="popupDialog">
+    <div class="  popheader shake">Notification Reminder</div>
+    <div class="popbody  " id="popupNote">
 
+        Your Note
+    </div>
+    <div class="popfooter">
+
+        <button class="mybtn" onclick="closeDetails(this)"> Dismiss</button>
+
+    </div>
+</div>
 </body>
 <script>
     if('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/personal-reminder-app/sw.js', { scope: '/personal-reminder-app/' });
     }
+
+    function askNotificationPermission() {
+  // Check if the browser supports notifications
+  if (!("Notification" in window)) {
+    console.log("This browser does not support notifications.");
+    return;
+  }
+  Notification.requestPermission().then((permission) => {
+    // set the button to shown or hidden, depending on what the user answers
+    console.log("Notifications are "+permission)
+    // notificationBtn.style.display = permission === "granted" ? "none" : "block";
+  });
+}
+
     </script>
 
 </html>
