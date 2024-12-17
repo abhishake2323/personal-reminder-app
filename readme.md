@@ -1,6 +1,6 @@
 #Personal Reminder App Static App
 
- 
+ [![Watch the video](https://img.youtube.com/vi/f2JpsKN6OVs/0.jpg)](https://www.youtube.com/watch?v=f2JpsKN6OVs)
 
 Developed using JavaScript, this offline static app is your personal assistant for managing reminders. The app allows users to effortlessly set reminders for specific dates and times, ensuring they never miss an important task or event.
 
